@@ -2,10 +2,11 @@ import CONTRACT_ABI from "./contract.abi.json";
 import { BrowserProvider, Contract, parseEther, formatEther } from "ethers";
 import { CONTRACT_ADDRESS } from "./constants";
 
-// Module-level variables to store provider, signer, and contract
+// Module-level variables to store provider, signer, account, and contract
 let provider;
 let signer;
 let contract;
+let account;
 
 // Function to initialize the provider, signer, and contract
 const initialize = async () => {
@@ -25,17 +26,31 @@ initialize();
 export const requestAccount = async () => {
   try {
     const accounts = await provider.send("eth_requestAccounts", []);
+    account = accounts[0];
     return accounts[0]; // Return the first account
   } catch (error) {
     console.error("Error requesting account:", error.message);
     return null;
   }
 };
+
 // Function to get contract balance in ETH
 export const getContractBalanceInETH = async () => {
   const balanceWei = await provider.getBalance(CONTRACT_ADDRESS);
   const balanceEth = formatEther(balanceWei); // Convert Wei to ETH string
   return balanceEth; // Convert ETH string to number
+};
+
+// Function to get contract address
+export const getContractAddress = () => {
+  return CONTRACT_ADDRESS; // Return locally loaded contract address
+};
+
+// Function to get user's balance
+export const getUserBalance = async () => {
+  const userBalance = await provider.getBalance(account);
+  const userBalanceInEth = formatEther(userBalance);
+  return userBalanceInEth;
 };
 
 // Function to deposit funds to the contract
