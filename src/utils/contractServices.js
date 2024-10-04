@@ -1,5 +1,5 @@
 import CONTRACT_ABI from "./contract.abi.json";
-import { BrowserProvider, Contract, formatEther } from "ethers";
+import { BrowserProvider, Contract, formatEther, parseEther } from "ethers";
 import { CONTRACT_ADDRESS } from "./constants";
 
 // Module-level variables to store provider, signer, account, and contract
@@ -71,4 +71,47 @@ export const getPredectionDetails = async (predectionId) => {
   const predictionOptions = await contract.getOptions(predectionId);
   console.log(predictionDetails);
   console.log(predictionOptions);
+};
+
+// Function to withdraw balance
+export const withdrawBalance = async () => {
+  const withdrawBalance = await contract.withdrawBalance();
+  console.log(withdrawBalance);
+};
+
+// Function to create new prediction
+export const createPrediction = async (prediction) => {
+  const newPrediction = await contract.createPrediction(
+    prediction.title,
+    prediction.description,
+    [prediction.option1, prediction.option2, prediction.option3],
+    prediction.duration
+  );
+  console.log(newPrediction);
+};
+
+// Function to place new bet
+export const placeBet = async (bet) => {
+  const options = { value: parseEther(bet.ether) };
+  const newBet = await contract.placeBet(
+    bet.predictionId,
+    bet.predictionOption,
+    options
+  );
+  console.log(newBet);
+};
+
+// Function to end prediction
+export const endPrediction = async (end) => {
+  const newPredictionEnd = await contract.endPrediction(
+    end.predictionId,
+    end.predictionWinningOption
+  );
+  console.log(newPredictionEnd);
+};
+
+// Function to claim payout
+export const claimPayout = async (claim) => {
+  const newClaim = await contract.claimPayout(claim.predictionId);
+  console.log(newClaim);
 };
