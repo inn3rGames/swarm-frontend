@@ -3,8 +3,6 @@ import ConnectWalletButton from "./components/ConnectWalletButton";
 import ContractInfo from "./components/ContractInfo";
 import ContractReadActions from "./components/ContractReadActions";
 import { requestAccount } from "./utils/contractServices";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -30,7 +28,6 @@ function App() {
 
   return (
     <div className="app">
-      <ToastContainer />
       {!account ? (
         <ConnectWalletButton setAccount={setAccount} />
       ) : (

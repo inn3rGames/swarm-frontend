@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import {
   getPredectionCounter,
   getPredectionDetails,
+  getOwner,
 } from "../utils/contractServices";
-import { getOwner } from "../utils/contractServices";
-import { toast } from "react-toastify";
 
 function ContractReadActions() {
   const [predectionId, setPredictionId] = useState("");
@@ -13,7 +12,7 @@ function ContractReadActions() {
     try {
       await getOwner();
     } catch (error) {
-      toast.error(error?.reason);
+      console.log(error);
     }
   };
 
@@ -21,7 +20,7 @@ function ContractReadActions() {
     try {
       await getPredectionCounter();
     } catch (error) {
-      toast.error(error?.reason);
+      console.log(error);
     }
   };
 
@@ -29,7 +28,7 @@ function ContractReadActions() {
     try {
       await getPredectionDetails(predectionId);
     } catch (error) {
-      toast.error(error?.reason);
+      console.log(error);
     }
     setPredictionId("");
   };
