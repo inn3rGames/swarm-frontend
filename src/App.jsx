@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ConnectWalletButton from "./components/ConnectWalletButton";
 import ContractInfo from "./components/ContractInfo";
-import ContractActions from "./components/ContractActions";
+import ContractReadActions from "./components/ContractReadActions";
 import { requestAccount } from "./utils/contractServices";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,7 +36,7 @@ function App() {
       ) : (
         <div className="contract-interactions">
           <ContractInfo account={account} />
-          <ContractActions />
+          <ContractReadActions />
         </div>
       )}
     </div>

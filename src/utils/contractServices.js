@@ -1,5 +1,5 @@
 import CONTRACT_ABI from "./contract.abi.json";
-import { BrowserProvider, Contract, parseEther, formatEther } from "ethers";
+import { BrowserProvider, Contract, formatEther } from "ethers";
 import { CONTRACT_ADDRESS } from "./constants";
 
 // Module-level variables to store provider, signer, account, and contract
@@ -53,16 +53,22 @@ export const getUserBalance = async () => {
   return userBalanceInEth;
 };
 
-// Function to deposit funds to the contract
-export const depositFund = async (depositValue) => {
-  const ethValue = parseEther(depositValue);
-  const deposit = await contract.deposit({ value: ethValue });
-  await deposit.wait();
+// Function to get the owner of contract
+export const getOwner = async () => {
+  const owner = await contract.owner();
+  console.log(owner);
 };
 
-// Function to withdraw funds from the contract
-export const withdrawFund = async () => {
-  const withdrawTx = await contract.withdraw();
-  await withdrawTx.wait();
-  console.log("Withdrawal successful!");
+// Function to get the predection Counter
+export const getPredectionCounter = async () => {
+  const predictionCounter = await contract.predictionCounter();
+  console.log(predictionCounter);
+};
+
+// Function to get the predection details
+export const getPredectionDetails = async (predectionId) => {
+  const predictionDetails = await contract.predictions(predectionId);
+  const predictionOptions = await contract.getOptions(predectionId);
+  console.log(predictionDetails);
+  console.log(predictionOptions);
 };
